@@ -13,7 +13,9 @@ router.post("/api/auth",[
         name: req.body.name,
         password: req.body.password,
         email: req.body.email
-      }).catch(err=>{console.log(err)})
+      }).catch(err=>{console.log(err)
+      
+      res.json({error:" Email is already registered"})})
       
       })
     
