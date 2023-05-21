@@ -4,13 +4,8 @@ MongoConnection()
 const app = express()
 const port = 3000
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
-app.get('/home', (req, res) => {
-    res.send('Home')
-  })
-
+app.get('/api/auth', require("./routes/auth"))
+app.get("/api/notes",require("./routes/notes"))
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(` app listening on port ${port}`)
 })
