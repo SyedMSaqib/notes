@@ -7,15 +7,15 @@ router.post("/api/auth",[
   check('password').isLength({ min: 6 })]
   ,(req,res)=>{
     const result = validationResult(req);
-    if (!result.isEmpty()) {
+    if (!result.isEmpty()) 
       return res.json(result)
-    }
-    else
-   {
-    const user=User(req.body)
-    user.save()
-  }
-  
+      User.create({
+        name: req.body.name,
+        password: req.body.password,
+        email: req.body.email
+      }).catch(err=>{console.log(err)})
+      
+      })
     
-})
+
 module.exports=router
