@@ -3,7 +3,7 @@ const MongoConnection=require("./db")
 MongoConnection()
 
 const app = express()
-const port = 3000
+const port = 5000
 app.use(express.json())
 app.post('/api/auth', require("./routes/auth"))
 app.post("/api/notes",require("./routes/notes"))
