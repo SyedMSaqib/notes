@@ -6,6 +6,8 @@ var bcrypt = require("bcryptjs");
 var jwt = require("jsonwebtoken");
 const key = "02192000";
 const fetchUser = require("../middleware/FectchUser");
+
+
 router.post("/signup", [check("email").isEmail(), check("password").isLength({ min: 6 })], async (req, res) => {
   const result = validationResult(req);
   if (!result.isEmpty()) return res.json(result);
