@@ -6,8 +6,11 @@ const { check, validationResult } = require("express-validator");
 
 //Route for getting all the notes
 router.get("/getAllNotes", fetchUser, async (req, res) => {
-  const notes = await Note.findOne({ id: req.user.id });
+  const notes = await Note.find({ user: req.user.id });
   res.json(notes);
+  console.log(notes)
+
+
 
   //route for adding new notes with specific user id
   router.post(
