@@ -6,9 +6,14 @@ const { check, validationResult } = require("express-validator")
 
 //Route for getting all the notes
 router.get("/getAllNotes", fetchUser, async (req, res) => {
-  const notes = await Note.find({ user: req.user.id })
-  res.json(notes)
-  console.log(notes)
+  try {
+    const notes = await Note.find({ user: req.user.id })
+    res.json(notes)
+    console.log(notes)
+  } catch (err) {
+    res.status(500).send("Internal Server Error")
+    console.log(err)
+  }
 })
 
 //route for adding new notes with specific user id
@@ -46,9 +51,30 @@ router.put("/updateNote/:id", fetchUser, async (req, res) => {
   if (title) newNote.title = title
   if (description) newNote.description = description
   if (tag) newNote.tag = tag
+  try {
+    GetNote = await Note.findByIdAndUpdate(noteId, { $set: newNote }, { new: true })
+    res.json({ GetNote })
+  } catch (err) {
+    res.status(500).send("Internal Server Error")
+    console.log(err)
+  }
+})
 
-  GetNote = await Note.findByIdAndUpdate(noteId, { $set: newNote }, { new: true })
-  res.json({ GetNote })
+router.delete("/deleteNote/:id", fetchUser, async (req, res) => {
+  const noteId = req.params.id
+  if (!noteId) return res.status(404).send("Oops, no such id exists")
+  let getNote = await Note.findById(noteId)
+  if (!getNote) return res.status(404).send("No such note exists")
+
+  const userIdFromDb = getNote.user.toString()
+  if (userIdFromDb !== req.user.id) return res.send("Unathorized user")
+  try {
+    getNote = await Note.findByIdAndDelete(noteId)
+    res.send(`Note deleted successfully ${getNote}`)
+  } catch (err) {
+    res.status(500).send("Internal Server Error")
+    console.log(err)
+  }
 })
 
 module.exports = router
