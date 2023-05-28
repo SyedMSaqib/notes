@@ -1,6 +1,12 @@
 import { React } from "react"
+import Notes from "./Notes"
+
+
 
 const Home = () => {
+
+  
+
   return (
     <div className="container my-3 ">
       <h2>Add a n Notes</h2>
@@ -30,7 +36,9 @@ const Home = () => {
           Submit
         </button>
       </form>
-      <h2 className="my-3">Your notes</h2>
+
+      <Notes/>
+      
     </div>
   )
 }
