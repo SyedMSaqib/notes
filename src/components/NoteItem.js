@@ -1,14 +1,18 @@
 import React from 'react'
 
+
 const NoteItem = (props) => {
     const {notes}=props
   return (
     <div className='col-md-3 my-3'>
-         <div class="card" >
+         <div className="card" >
   
-  <div class="card-body">
-    <h5 class="card-title">{notes.title}</h5>
-    <p class="card-text">{notes.description} </p>
+  <div className="card-body">
+    <h5 className="card-title">{notes.title}</h5>
+    <p className="card-text">{notes.description} </p>
+    <i className="fa-solid fa-trash-can float-right mx-3 "></i>
+    <i className="fa-solid fa-pen mx-3"></i>
+    
     
   </div>
 </div>
